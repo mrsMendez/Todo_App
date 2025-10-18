@@ -1,0 +1,13 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+button {
+  margin-left: 10px;
+}
