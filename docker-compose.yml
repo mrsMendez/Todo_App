@@ -3,36 +3,44 @@ version: "3.8"
 services:
   db:
     image: postgres:15-alpine
-    container_name: todo-db
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: todoapp
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: todo_db
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
+      timeout: 5s
       retries: 5
 
   backend:
     build: ./backend
-    container_name: todo-backend
     ports:
       - "3000:3000"
     environment:
       DB_HOST: db
       DB_USER: postgres
       DB_PASSWORD: postgres
-      DB_NAME: todoapp
+      DB_NAME: todo_db
       DB_PORT: 5432
+      PORT: 3000
     depends_on:
       db:
         condition: service_healthy
     volumes:
       - ./backend:/app
 
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
 volumes:
-  db_data:
+  pgdata:
+
