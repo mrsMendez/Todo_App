@@ -1,12 +1,13 @@
-# Dependencias
+# Ignorar dependencias
 node_modules/
 
-# Logs
+# Ignorar archivos de logs
 *.log
 
-# Variables de entorno
+# Ignorar variables de entorno
 .env
 
-# Archivos del sistema
+# Ignorar archivos del sistema operativo
 .DS_Store
 Thumbs.db
+
